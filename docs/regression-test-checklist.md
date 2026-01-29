@@ -4,6 +4,7 @@ Author: Joshua Pearson
 Test level: System / End-to-End (manual support for automated coverage)  
 Scope: Shopping List App (full-stack MERN)
 Last updated: 29.01.26
+Last run (baseline): 29.01.26 ([TR-2026-01-29-initial-regression-baseline](test-runs/TR-2026-01-29-initial-regression-baseline.md))
 
 ---
 
