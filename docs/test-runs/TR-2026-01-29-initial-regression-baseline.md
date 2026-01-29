@@ -8,7 +8,7 @@
 - **Version / Commit:** e773604 (docs/qa-baseline-workflow)
 - **Environment:**
   - OS: Windows 11
-  - Browser: Firefox 47.0.2 (64-bit)
+  - Browser: Firefox 47.0.2 (64-bit) [primary browser for baseline]
   - Backend runtime: Node.js 18
   - Database: MongoDB (local)
 
@@ -106,8 +106,8 @@ Expected behaviour for stateless JWT authentication. No defect logged.
 - Login attempted via UI
 
 **Observed behaviour:**
-- Error message displayed: "`Failed to fetch`"
-- Network failure visible in browser dev tools
+- UI displays a browser-native network error message ("NetworkError when attempting to fetch resource.") in Firefox
+- Network request fails during CORS preflight
 
 **Result:**  
 ❌ Baseline gap identified in error handling
@@ -127,10 +127,10 @@ Expected behaviour for stateless JWT authentication. No defect logged.
 
 ## 6. Defects Identified
 
-| Issue ID | Severity | Status | Description                                                       |
-|----------|----------|--------|-------------------------------------------------------------------|
-| #1       | Medium   | Open   | Raw “Failed to fetch” error exposed to user during backend outage |
-| #2       | Medium   | Open   | Session termination provides no user-facing explanation           |
+| Issue ID | Severity | Status | Description                                                                                       |
+|----------|----------|--------|---------------------------------------------------------------------------------------------------|
+| #1       | Medium   | Open   | Raw “NetworkError when attempting to fetch resource.” error exposed to user during backend outage |
+| #2       | Medium   | Open   | Session termination provides no user-facing explanation                                           |
 
 ---
 
@@ -159,3 +159,4 @@ This initial regression run establishes a baseline for authentication, authoriza
 - No application crashes occurred
 - API behaviour was validated via UI, browser developer tools, and Postman
 - This test run should be used as a reference point for future regression comparisons
+- Initial exploratory testing was performed in another browser; Firefox was chosen as the primary browser for this baseline run and the error message differs slightly by browser.
