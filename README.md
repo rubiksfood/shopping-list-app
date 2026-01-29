@@ -19,7 +19,21 @@ This project demonstrates my ability to design **testable systems**, apply the *
 - Risk-based test selection to maximise confidence while minimising flakiness
 - Failure analysis using logs, traces, screenshots, and reports
 
-📄 Detailed testing strategy and rationale: [`TESTING_STRATEGY.md`](./TESTING_STRATEGY.md)
+📄 Detailed testing strategy and rationale: [`TESTING_STRATEGY.md`](./docs/TESTING_STRATEGY.md)
+
+## Testing & Quality
+
+In addition to automated test coverage, this project includes structured manual testing to validate real-world failure scenarios and establish regression confidence.
+
+Quality-related artefacts are documented in the [`docs/`](./docs/) directory, including:
+- A documented regression test checklist defining expected system behaviour
+- Baseline regression run capturing observed behaviour
+- Defect tracking via GitHub Issues with clear reproduction steps and evidence
+
+The initial regression run establishes a quality baseline for authentication, session handling, and error handling. 
+Subsequent test runs aim to validate changes against this baseline.
+
+The sections below describe the application functionality and architecture that these testing practices are designed to validate.
 
 ## 🚀 Overview
 This app allows users to create and manage personalised shopping lists with full authentication, CRUD functionality, and persistent data storage in MongoDB. The UX is designed to be fast and intuitive for real-world shopping scenarios.
@@ -254,6 +268,10 @@ ATLAS_URI="YOUR_MONGODB_URI_HERE"
 PORT=5050
 JWT_SECRET="your_secret_here"
 ```
+
+> **Note:**  
+> When using MongoDB Atlas, ensure your current IP address is allowed in the Atlas Network Access settings.  
+> The application will fail to start if the cluster is not running or the IP is not whitelisted.
 
 ---
 
