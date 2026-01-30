@@ -48,7 +48,7 @@ This test run serves to:
   - Direct API requests using **Postman** (JWT modification, missing/invalid token scenarios)
 
 **Regression checklist used:**  
-`docs/regression-test-checklist.md`
+[`docs/regression-test-checklist.md`](../regression-test-checklist.md)
 
 ---
 

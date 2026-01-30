@@ -1,4 +1,4 @@
-# TEST_PROCESS_FRONTEND.md  
+# test-process-frontend.md  
 ## Shopping List MERN – Frontend Test Process  
 Author: **Joshua Pearson**  
 Last Updated: 2025-12-16  

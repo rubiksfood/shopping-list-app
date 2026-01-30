@@ -19,7 +19,7 @@ This project demonstrates my ability to design **testable systems**, apply the *
 - Risk-based test selection to maximise confidence while minimising flakiness
 - Failure analysis using logs, traces, screenshots, and reports
 
-📄 Detailed testing strategy and rationale: [`TESTING_STRATEGY.md`](./docs/TESTING_STRATEGY.md)
+📄 Detailed testing strategy and rationale: [`testing-strategy.md`](./docs/testing-strategy.md)
 
 ## Testing & Quality
 
@@ -119,7 +119,7 @@ cd server
 npm test
 ```
 
-📄 Detailed backend test specification: [`TESTING_BACKEND.md`](./server/TESTING_BACKEND.md)
+📄 Detailed backend test specification: [`testing-backend.md`](./server/test-docs/testing-backend.md)
 
 ---
 
@@ -143,7 +143,7 @@ cd client
 npm test  
 ```
 
-📄 Detailed frontend test specification: [`TESTING_FRONTEND.md`](./client/TESTING_FRONTEND.md)
+📄 Detailed frontend test specification: [`testing-frontend.md`](./client/test-docs/testing-frontend.md)
 
 ---
 
@@ -193,7 +193,7 @@ This command:
 - Executes the Playwright test suite
 
 
-📄 Detailed E2E test specification: [`TESTING_E2E.md`](./e2e/TESTING_E2E.md)
+📄 Detailed E2E test specification: [`testing-e2e.md`](./e2e/test-docs/testing-e2e.md)
 
 ---
 
@@ -346,9 +346,9 @@ It forms part of my transition into QA and software engineering, showcasing not 
 
 ## 📂 Key Areas of Interest
 
-- `/server` – Express backend + API tests
-- `/client` – React frontend + UI tests
-- `/e2e` – Playwright E2E tests, specs, and CI setup
+- [`/server`](./server/) – Express backend + API tests
+- [`/client`](./client/) – React frontend + UI tests
+- [`/e2e`](./e2e/) – Playwright E2E tests, specs, and CI setup
 
 ---
 

@@ -1,4 +1,4 @@
-# TESTING.md  
+# testing-backend.md  
 ## Shopping List MERN – Backend Test Specification  
 Author: **Joshua Pearson**  
 Last Updated: 2025-12-10  
