@@ -12,7 +12,7 @@ function requireEnv(name) {
 const ATLAS_URI = requireEnv("ATLAS_URI");
 
 // Set this to a dedicated E2E DB name (NEVER prod!)
-const E2E_DB_NAME = process.env.E2E_DB_NAME || "shopping-list-test-e2e";
+const DB_NAME = process.env.DB_NAME || "shopping-list-test-e2e";
 
 // Collections used by the app
 const COLLECTIONS_TO_CLEAR = ["users", "shopItems"];
@@ -20,13 +20,13 @@ const COLLECTIONS_TO_CLEAR = ["users", "shopItems"];
 // Safety: refuse to run on suspicious DB names
 const FORBIDDEN = ["shopping_list", "prod", "production", "main"];
 const looksForbidden =
-  FORBIDDEN.includes(E2E_DB_NAME) ||
-  E2E_DB_NAME.toLowerCase().includes("prod") ||
-  E2E_DB_NAME.toLowerCase() === "shopping_list";
+  FORBIDDEN.includes(DB_NAME) ||
+  DB_NAME.toLowerCase().includes("prod") ||
+  DB_NAME.toLowerCase() === "shopping-list";
 
 if (looksForbidden) {
   console.error(
-    `Refusing to reset database "${E2E_DB_NAME}". Use a dedicated E2E DB name (e.g. shopping-list-test-e2e).`
+    `Refusing to reset database "${DB_NAME}". Use a dedicated E2E DB name (e.g. shopping-list-test-e2e).`
   );
   process.exit(1);
 }
@@ -42,7 +42,7 @@ async function main() {
 
   try {
     await client.connect();
-    const db = client.db(E2E_DB_NAME);
+    const db = client.db(DB_NAME);
 
     // Verify we can ping
     await client.db("admin").command({ ping: 1 });
@@ -56,7 +56,7 @@ async function main() {
     console.log(
       `✅ E2E DB reset complete. Cleared: ${COLLECTIONS_TO_CLEAR.join(
         ", "
-      )} in DB "${E2E_DB_NAME}".`
+      )} in DB "${DB_NAME}".`
     );
   } catch (err) {
     console.error("❌ E2E DB reset failed:", err);
