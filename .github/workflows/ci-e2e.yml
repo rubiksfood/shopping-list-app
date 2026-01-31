@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   e2e:
@@ -36,7 +37,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # Create the E2E env file required by dev:server script
+      # Create the required E2E env file
       - name: Create E2E env file
         run: cp e2e/config.e2e.env.example e2e/config.e2e.env
 

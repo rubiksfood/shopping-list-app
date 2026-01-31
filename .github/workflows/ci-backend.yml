@@ -9,6 +9,7 @@ on:
     paths:
       - "server/**"
       - ".github/workflows/ci-backend.yml"
+  workflow_dispatch:
 
 jobs:
   test-backend:
@@ -18,7 +19,7 @@ jobs:
       mongo:
         image: mongo:7
         ports:
-          - 27017:27017
+          - 27018:27017
         options: >-
           --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 })'"
           --health-interval 10s
@@ -28,11 +29,6 @@ jobs:
     defaults:
       run:
         working-directory: server
-
-    env:
-      NODE_ENV: test
-      JWT_SECRET: ci-test-secret
-      ATLAS_URI: mongodb://127.0.0.1:27017
 
     steps:
       - name: Checkout repository
@@ -48,14 +44,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Generate --env-file=config.env (needed for tests) safely at runtime - never commit secrets
-      - name: Create config.env for tests
+      # Generate config.test.env safely at runtime
+      - name: Create config.test.env for tests
         run: |
-          cat > config.env << 'EOF'
-          ATLAS_URI=mongodb://127.0.0.1:27017
+          cat > config.test.env << 'EOF'
+          ATLAS_URI=mongodb://127.0.0.1:27018
+          DB_NAME=shopping-list-test
           JWT_SECRET=ci-test-secret
           NODE_ENV=test
           EOF
 
       - name: Run backend tests
-        run: npm test
+        run: npm run test:ci

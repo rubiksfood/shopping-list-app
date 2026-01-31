@@ -19,7 +19,21 @@ This project demonstrates my ability to design **testable systems**, apply the *
 - Risk-based test selection to maximise confidence while minimising flakiness
 - Failure analysis using logs, traces, screenshots, and reports
 
-📄 Detailed testing strategy and rationale: [`TESTING_STRATEGY.md`](./TESTING_STRATEGY.md)
+📄 Detailed testing strategy and rationale: [`testing-strategy.md`](./docs/testing-strategy.md)
+
+## Testing & Quality
+
+In addition to automated test coverage, this project includes structured manual testing to validate real-world failure scenarios and establish regression confidence.
+
+Quality-related artefacts are documented in the [`docs/`](./docs/) directory, including:
+- A documented regression test checklist defining expected system behaviour
+- Baseline regression run capturing observed behaviour
+- Defect tracking via GitHub Issues with clear reproduction steps and evidence
+
+The initial regression run establishes a quality baseline for authentication, session handling, and error handling. 
+Subsequent test runs aim to validate changes against this baseline.
+
+The sections below describe the application functionality and architecture that these testing practices are designed to validate.
 
 ## 🚀 Overview
 This app allows users to create and manage personalised shopping lists with full authentication, CRUD functionality, and persistent data storage in MongoDB. The UX is designed to be fast and intuitive for real-world shopping scenarios.
@@ -105,7 +119,10 @@ cd server
 npm test
 ```
 
-📄 Detailed backend test specification: [`TESTING_BACKEND.md`](./server/TESTING_BACKEND.md)
+**Note**: starts a temporary MongoDB container automatically for the test run.  
+Docker **must** be running for backend integration tests.
+
+📄 Detailed backend test specification: [`testing-backend.md`](./server/test-docs/testing-backend.md)
 
 ---
 
@@ -129,7 +146,7 @@ cd client
 npm test  
 ```
 
-📄 Detailed frontend test specification: [`TESTING_FRONTEND.md`](./client/TESTING_FRONTEND.md)
+📄 Detailed frontend test specification: [`testing-frontend.md`](./client/test-docs/testing-frontend.md)
 
 ---
 
@@ -174,12 +191,13 @@ npm run test:e2e
 
 This command:
 - Starts required Docker containers
+- Waits for readiness
 - Launches backend and frontend services
 - Resets the E2E database
 - Executes the Playwright test suite
 
 
-📄 Detailed E2E test specification: [`TESTING_E2E.md`](./e2e/TESTING_E2E.md)
+📄 Detailed E2E test specification: [`testing-e2e.md`](./e2e/test-docs/testing-e2e.md)
 
 ---
 
@@ -255,6 +273,10 @@ PORT=5050
 JWT_SECRET="your_secret_here"
 ```
 
+> **Note:**  
+> When using MongoDB Atlas, ensure your current IP address is allowed in the Atlas Network Access settings.  
+> The application will fail to start if the cluster is not running or the IP is not whitelisted.
+
 ---
 
 ### 4. Run the application (recommended)
@@ -328,9 +350,9 @@ It forms part of my transition into QA and software engineering, showcasing not 
 
 ## 📂 Key Areas of Interest
 
-- `/server` – Express backend + API tests
-- `/client` – React frontend + UI tests
-- `/e2e` – Playwright E2E tests, specs, and CI setup
+- [`/server`](./server/) – Express backend + API tests
+- [`/client`](./client/) – React frontend + UI tests
+- [`/e2e`](./e2e/) – Playwright E2E tests, specs, and CI setup
 
 ---
 

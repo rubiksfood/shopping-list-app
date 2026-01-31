@@ -4,19 +4,26 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test node --env-file=config.env --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand"
+    "test": "npm run test:local",
+    "test:local": "npm run test:docker:up && cross-env NODE_ENV=test node --env-file=config.test.env --experimental-vm-modules ./node_modules/jest/bin/jest.js --ci --runInBand && npm run test:docker:down",
+    "test:ci": "cross-env NODE_ENV=test node --env-file=config.test.env --experimental-vm-modules ./node_modules/jest/bin/jest.js --ci --runInBand",
+    "test:docker:up": "docker run --rm -d --name mongo-test -p 27018:27017 mongo:7",
+    "test:docker:down": "docker stop mongo-test || true"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "mongodb": "^6.15.0"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
     "jest": "^30.2.0",
     "supertest": "^7.1.4"
   }

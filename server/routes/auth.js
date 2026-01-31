@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import db from "../db/connection.js";
+import { getDB } from "../db/connection.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
@@ -20,6 +20,7 @@ router.post("/register", async (req, res) => {
         .json({ message: "Email and password are required" });
     }
 
+    const db = getDB();
     const usersCollection = await db.collection("users");
 
     const existing = await usersCollection.findOne({ email });
@@ -47,6 +48,7 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    const db = getDB();
     const usersCollection = await db.collection("users");
     const user = await usersCollection.findOne({ email });
 
@@ -79,6 +81,7 @@ router.post("/login", async (req, res) => {
 // GET /auth/me  (not necessary... but useful for frontend)
 router.get("/me", auth, async (req, res) => {
   try {
+    const db = getDB();
     const usersCollection = await db.collection("users");
     const user = await usersCollection.findOne(
       { _id: new ObjectId(req.userId) },

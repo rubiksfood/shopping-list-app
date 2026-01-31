@@ -1,4 +1,4 @@
-# TESTING_E2E.md  
+# testing-e2e.md  
 ## Shopping List MERN – End-to-End (E2E) Test Specification (Playwright)  
 Author: **Joshua Pearson**  
 Last Updated: 2025-12-29  

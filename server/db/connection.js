@@ -1,40 +1,59 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 const uri = process.env.ATLAS_URI || "";
+if (!uri) throw new Error("ATLAS_URI is not defined");
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+let client;
+let db;
+let connectPromise = null;
 
-try {
-  // Connect the client to the server
-  await client.connect();
-  // Send a ping to confirm a successful connection
-  await client.db("admin").command({ ping: 1 });
-  console.log(
-   "Successfully connected to MongoDB!"
-  );
-} catch(err) {
-  console.error(err);
+export async function connectDB() {
+  if (db) return db;
+
+  // If a connection is already in progress, await it
+  if (connectPromise) return await connectPromise;
+
+  connectPromise = (async () => {
+    client = new MongoClient(uri, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+    });
+
+    await client.connect();
+
+    const env = process.env.NODE_ENV;
+    const dbName =
+      process.env.DB_NAME ||
+      (env === "test"
+        ? "shopping-list-test"
+        : env === "e2e"
+        ? "shopping-list-test-e2e"
+        : "shopping-list");
+
+    db = client.db(dbName);
+    return db;
+  })();
+
+  try {
+    return await connectPromise;
+  } finally {}
 }
 
-// Use a different DB for testing
-const env = process.env.NODE_ENV;
+export async function disconnectDB() {
+  if (client) {
+    await client.close();
+  }
+  client = null;
+  db = null;
+  connectPromise = null;
+}
 
-// Prefer an explicit DB name if provided (useful for CI/E2E)
-const dbName =
-  process.env.DB_NAME || 
-  (env === "test" 
-    ? "shopping_list_test" 
-    : env === "e2e"
-      ? "shopping_list_test_e2e"
-      : "shopping_list");
-
-let db = client.db(dbName);
-
-export { client };
-export default db;
+export function getDB() {
+  if (!db) throw new Error("Database not initialised. Call connectDB() first.");
+  return db;
+}

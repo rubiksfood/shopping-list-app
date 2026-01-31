@@ -1,4 +1,4 @@
-# TESTING_FRONTEND.md  
+# testing-frontend.md  
 ## Shopping List MERN – Frontend Test Specification  
 Author: **Joshua Pearson**  
 Last Updated: 2025-12-16  
