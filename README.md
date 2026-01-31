@@ -119,6 +119,9 @@ cd server
 npm test
 ```
 
+**Note**: starts a temporary MongoDB container automatically for the test run.  
+Docker **must** be running for backend integration tests.
+
 📄 Detailed backend test specification: [`testing-backend.md`](./server/test-docs/testing-backend.md)
 
 ---
@@ -188,6 +191,7 @@ npm run test:e2e
 
 This command:
 - Starts required Docker containers
+- Waits for readiness
 - Launches backend and frontend services
 - Resets the E2E database
 - Executes the Playwright test suite
