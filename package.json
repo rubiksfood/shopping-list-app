@@ -25,7 +25,7 @@
     "e2e:test:ui": "playwright test --ui",
     "e2e:test:headed": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test --headed",
     "e2e:test:list": "playwright test --list",
-    "e2e:wait": "wait-on tcp:127.0.0.1:27017 -t 30000",
+    "e2e:wait": " npx wait-on tcp:127.0.0.1:27017 -t 30000",
     "test:e2e": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test",
     "test:e2e:headed": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test --headed",
     "test:server": "cd server && node --env-file=../e2e/config.e2e.env server.js"
