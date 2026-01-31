@@ -36,9 +36,13 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # Create the E2E env file required by dev:server script
+      # Create the required E2E env file
       - name: Create E2E env file
         run: cp e2e/config.e2e.env.example e2e/config.e2e.env
+
+      # Wait for Mongo to accept connections (prevents flakiness)
+      - name: Wait for Mongo
+        run: npx wait-on tcp:127.0.0.1:27017
 
       # Run one-command E2E
       - name: Run E2E tests
