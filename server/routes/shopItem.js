@@ -1,7 +1,7 @@
 import express from "express";
 
 // This helps to connect to the database
-import db from "../db/connection.js";
+import { getDB } from "../db/connection.js";
 
 // This helps to convert the id from string to ObjectId for the _id.
 import { ObjectId } from "mongodb";
@@ -14,6 +14,7 @@ const router = express.Router();
 // Get a list of all items, EXCLUSIVELY for the current user. 
 router.get("/", auth, async (req, res) => {
   try {
+    const db = getDB();
     const collection = await db.collection("shopItems");
     // Ensure that items ONLY belong to the logged in user
     const results = await collection
@@ -30,6 +31,7 @@ router.get("/", auth, async (req, res) => {
 // Get a single item by id, but ONLY if it belongs to this user
 router.get("/:id", auth, async (req, res) => {
   try {
+    const db = getDB();
     const collection = await db.collection("shopItems");
     const query = {
       _id: new ObjectId(req.params.id),
@@ -61,6 +63,7 @@ router.post("/", auth, async (req, res) => {
       createdAt: new Date(),
     };
 
+    const db = getDB();
     const collection = await db.collection("shopItems");
     const result = await collection.insertOne(newDocument);
     res.status(201).send(result);
@@ -83,6 +86,7 @@ router.patch("/:id", auth, async (req, res) => {
       // This only updates the fields provided in the request body.
     };
 
+    const db = getDB();
     const collection = await db.collection("shopItems");
     const result = await collection.updateOne(query, updates);
 
@@ -108,6 +112,7 @@ router.delete("/:id", auth, async (req, res) => {
       userId: req.userId,
     };
 
+    const db = getDB();
     const collection = await db.collection("shopItems");
     const result = await collection.deleteOne(query);
 
