@@ -54,4 +54,4 @@ jobs:
           EOF
 
       - name: Run backend tests
-        run: npm test
+        run: npm run test:ci
