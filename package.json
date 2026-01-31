@@ -11,7 +11,7 @@
     "dotenv": "^17.2.3",
     "mongodb": "^7.0.0",
     "typescript": "^5.9.3",
-    "wait-on": "^8.0.0"
+    "wait-on": "^8.0.5"
   },
   "scripts": {
     "dev:server": "cd server && node --env-file=config.env server.js",
@@ -21,12 +21,13 @@
     "e2e:docker:up": "docker compose -f docker-compose.e2e.yml up -d",
     "e2e:docker:down": "docker compose -f docker-compose.e2e.yml down",
     "e2e:reset-db": "node e2e/utils/reset-db.mjs",
-    "e2e:test": "npm run e2e:check-docker && npm run e2e:docker:up && playwright test",
+    "e2e:test": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test",
     "e2e:test:ui": "playwright test --ui",
-    "e2e:test:headed": "npm run e2e:check-docker && npm run e2e:docker:up && playwright test --headed",
+    "e2e:test:headed": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test --headed",
     "e2e:test:list": "playwright test --list",
-    "test:e2e": "npm run e2e:check-docker && npm run e2e:docker:up && playwright test",
-    "test:e2e:headed": "npm run e2e:check-docker && npm run e2e:docker:up && playwright test --headed",
+    "e2e:wait": "wait-on tcp:127.0.0.1:27017 -t 30000",
+    "test:e2e": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test",
+    "test:e2e:headed": "npm run e2e:check-docker && npm run e2e:docker:up && npm run e2e:wait && playwright test --headed",
     "test:server": "cd server && node --env-file=../e2e/config.e2e.env server.js"
   }
 }
