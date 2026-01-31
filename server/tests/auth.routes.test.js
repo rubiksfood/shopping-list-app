@@ -1,21 +1,9 @@
 import request from "supertest";
 import app from "../app.js";
-import db, { client } from "../db/connection.js";
-import { clearDatabase } from "./setup.js";
+import { connectDB, disconnectDB, getDB } from "../db/connection.js";
+import { clearDatabase } from "./utils/clearDatabase.js";
 
 describe("Auth routes", () => {
-  beforeAll(async () => {
-    // Connection is created in connection.js
-  });
-
-  beforeEach(async () => {
-    await clearDatabase();
-  });
-
-  afterAll(async () => {
-    await clearDatabase();
-    await client.close();
-  });
 
   // TCON-AUTH-REG-01: Valid registration
   describe("POST /auth/register", () => {

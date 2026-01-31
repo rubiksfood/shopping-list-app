@@ -1,8 +1,9 @@
 import app from "../app.js";
-import db, { client } from "../db/connection.js";
 import { ObjectId } from "mongodb";
-import { clearDatabase } from "./setup.js";
 import request from "supertest";
+
+import { connectDB, disconnectDB, getDB } from "../db/connection.js";
+import { clearDatabase } from "./utils/clearDatabase.js";
 
 // Helper function to register and login a user, returning the auth token
 async function registerAndLogin(email = "user@example.com") {
@@ -20,19 +21,9 @@ async function registerAndLogin(email = "user@example.com") {
 describe("ShopItem routes", () => {
   let token;
 
-  beforeAll(async () => {
-    // DB connected via connection.js
-  });
-
-  beforeEach(async () => {
-    await clearDatabase();
-    token = await registerAndLogin();
-  });
-
-  afterAll(async () => {
-    await clearDatabase();
-    await client.close();
-  });
+    beforeEach(async () => {
+      token = await registerAndLogin();
+    });
 
   // LIST
 

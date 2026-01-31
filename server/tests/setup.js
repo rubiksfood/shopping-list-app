@@ -1,12 +1,17 @@
-import db, { client } from "../db/connection.js";
+import { jest } from "@jest/globals";
+import { connectDB, disconnectDB, getDB } from "../db/connection.js";
+import { clearDatabase } from "./utils/clearDatabase.js";
 
-export async function clearDatabase() {
-  const collections = await db.collections();
-  for (const collection of collections) {
-    await collection.deleteMany({});
-  }
-}
+jest.setTimeout(20000);
 
-export async function closeDatabase() {
-  await client.close();
-}
+beforeAll(async () => {
+  await connectDB();
+});
+
+beforeEach(async () => {
+  await clearDatabase(getDB());
+});
+
+afterAll(async () => {
+  await disconnectDB();
+});

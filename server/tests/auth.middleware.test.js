@@ -7,6 +7,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "CHANGE-ME";
 
 function createTestApp() {
   const app = express();
+  app.use(express.json());
+
   app.get("/protected", auth, (req, res) => {
     res.json({ userId: req.userId });
   });
