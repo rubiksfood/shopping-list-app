@@ -23,7 +23,7 @@ The backend under test includes:
 - JWT authentication middleware
 - MongoDB persistence and per-user data isolation
 
-Automated tests are implemented with **Jest + Supertest** against a dedicated MongoDB **test database** (`shopping_list_test`).
+Automated tests are implemented with **Jest + Supertest** against a dedicated MongoDB **test database** (`shopping-list-test`).
 
 ---
 
@@ -96,7 +96,7 @@ Automated tests are implemented with **Jest + Supertest** against a dedicated Mo
 
 - **Node.js** in ESM mode
 - **Express** backend app (`app.js`)
-- **MongoDB Atlas** test database (`shopping_list_test`)
+- **MongoDB Atlas** test database (`shopping-list-test`)
 - **Jest** test runner
 - **Supertest** for HTTP request simulation
 
@@ -144,7 +144,7 @@ Todo (once implemented in backend):
 | AUTH-REG-TC-01  | Register with valid email & password   | Email not registered     | `{"email":"test@example.com","password":"pass123"}` | `201 Created`, body `{ "message": "User created" }`     | EP        |
 | AUTH-REG-TC-02  | Registration fails with missing fields | None                     | `{}`, or missing `email` or `password`               | `400 Bad Request`, validation error message             | EP, EG    |
 | AUTH-REG-TC-03  | Duplicate registration is rejected     | Email already registered | Register once, then repeat same email/password       | Second attempt: `409 Conflict`, `"User already exists"` | DT, EG    |
-| AUTH-REG-TC-04* | Password boundary validation (future)  | Password rules defined (e.g. min len)   | Min-length vs below-min-length passwords              | Min → success, below-min → `4xx`                        | BVA       |
+| AUTH-REG-TC-04* | Password boundary validation (future)  | Password rules defined (e.g. min len)   | Min-length vs below-min-length passwords  | Min → success, below-min → `4xx`                        | BVA       |
 * Planned once backend enforces password length/format.
 
 ### 5.1.3 Test Cases – Login
@@ -154,7 +154,7 @@ Todo (once implemented in backend):
 | AUTH-LOG-TC-01 | Login succeeds with valid credentials | User registered      | `{"email":"login@example.com","password":"Pass1234"}` | `200 OK`, body contains `token` string      | EP, DT    |
 | AUTH-LOG-TC-02 | Login fails with wrong password       | User registered      | Same email, different password                        | `401 Unauthorized`, `"Invalid credentials"` | DT, EG    |
 | AUTH-LOG-TC-03 | Login fails for unknown email         | Email not registered | Email not in DB                                       | `401 Unauthorized`, `"Invalid credentials"` | EP, EG    |
-| AUTH-LOG-TC-04 | Login fails with missing fields       | None                 | Empty body or missing password                        | `4xx` error, appropriate message            | EP, EG    |
+| AUTH-LOG-TC-04 | Login fails with missing fields       | None                 | Empty body or missing password                        | `401 Unauthorized`, `"Invalid credentials"` | EP, EG    |
 
 ### 5.1.4 Test Cases - Return user info via /auth/me
 
