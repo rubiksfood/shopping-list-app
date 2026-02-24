@@ -95,7 +95,7 @@ Backend testing aims to:
 ### Environment Components
 - Node.js (ESM mode)
 - Express.js application exported from `app.js`
-- MongoDB Atlas Test Database: `shopping_list_test`
+- MongoDB Atlas Test Database: `shopping-list-test`
 - Jest test runner
 - Supertest HTTP testing library
 
@@ -309,7 +309,7 @@ npm test
 ### What Happens During Execution:
 
 - Jest loads config
-- MongoDB connects to shopping_list_test
+- MongoDB connects to shopping-list-test
 - Before each test → all collections cleared
 - Supertest runs HTTP calls directly against app.js
 
